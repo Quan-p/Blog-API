@@ -1,22 +1,50 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET users listing. */
-
+// 
 router.get('/', (req, res) => {
   return res.send('Received a GET HTTP method');
 });
+// get all posts
+router.get('/posts', (req, res) => {
+  return res.send('GET HTTP method for all posts');
+});
+// get post by ID
+router.get('/posts/:id', (req, res) => {
+  return res.send('GET HTTP method for specific post');
+});
+// get all comments for a post
+router.get('/posts/:postid/comments', (req, res) => {
+  return res.send('GET HTTP method for all comments');
+});
+// login
+router.post('/login', (req, res) => {
+  return res.send('Received a POST HTTP method to login');
+});
 
-router.post('/', (req, res) => {
+// logout
+router.post('/logout', (req, res) => {
+  return res.send('Received a POST HTTP method to logout');
+});
+// Create a post
+router.post('/posts', (req, res) => {
   return res.send('Received a POST HTTP method');
 });
-
-router.put('/', (req, res) => {
-  return res.send('Received a PUT HTTP method');
+// Create a comment
+router.post('/posts/:postid/comment', (req, res) => {
+  return res.send('Received a POST HTTP method to create a comment');
 });
-
-router.delete('/', (req, res) => {
-  return res.send('Received a DELETE HTTP method');
+// Update a post
+router.put('/post:id', (req, res) => {
+  return res.send('Received a PUT HTTP method to update a post');
+});
+// delete a post
+router.delete('/post/:id', (req, res) => {
+  return res.send('Received a DELETE HTTP method to delete a post');
+});
+// delete a commnet
+router.delete('/post/:postid/comment/:commentid', (req, res) => {
+  return res.send('Received a DELETE HTTP method to delete a post');
 });
 
 module.exports = router;
