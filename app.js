@@ -8,6 +8,9 @@ const apiRouter = require('./routes/api');
 
 const app = express();
 
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
+
 app.use("/", apiRouter);
 
 mongoose.set('strictQuery', false);
@@ -19,6 +22,7 @@ db.once('connected', () => {
   console.log('Database Connected');
 })
 app.listen(5000, () => console.log('Listening on http://localhost:5000/'));
+
 
 
 module.exports = app;
