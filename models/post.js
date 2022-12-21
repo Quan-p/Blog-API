@@ -3,9 +3,9 @@ const { Schema } = mongoose;
 
 const PostSchema = new Schema({
     title: { type: String, required: true },
-    date: { type: Date, default: Date.now, required: true },
+    date: { type: Date, default: Date.now },
     content: { type: String, required: true },
-    author: { type: Schema.Types.ObjectId, required: true, ref: 'User' },
+    author: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     comments: { type: Array, default: [] },
     published: { type: Boolean, default: false },
 });
