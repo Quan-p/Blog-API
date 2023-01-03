@@ -16,6 +16,7 @@ router.get('/posts/:postid', post_controller.get_single_post);
 router.get('/posts/:postid/comments', (req, res) => {
   return res.send('GET HTTP method for all comments');
 });
+
 // login
 router.post('/login', (req, res) => {
   return res.send('Received a POST HTTP method to login');
@@ -33,9 +34,7 @@ router.post('/posts/:postid/comment', (req, res) => {
   return res.send('Received a POST HTTP method to create a comment');
 });
 // Update a post
-router.put('/post:id', (req, res) => {
-  return res.send('Received a PUT HTTP method to update a post');
-});
+router.put('/posts/:postid', post_controller.update_post);
 // delete a post
 router.delete('/posts/:id', (req, res) => {
   return res.send('Received a DELETE HTTP method to delete a post');
