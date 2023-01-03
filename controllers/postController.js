@@ -31,6 +31,16 @@ exports.create_post = [
     }
 ];
 
+exports.get_posts = async function(req, res, next) {
+    try {
+        const posts = await Post.find({});
+        if (!posts) return res.status(404);
+        res.status(200).json({ posts });
+    } catch (err) {
+        next(err)
+    }
+};
+
 //     title: { type: String, required: true },
 //     date: { type: Date, default: Date.now },
 //     content: { type: String, required: true },

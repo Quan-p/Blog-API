@@ -3,12 +3,12 @@ const router = express.Router();
 const post_controller = require('../controllers/postController');
 // 
 router.get('/', (req, res) => {
-  return res.send('Received a GET HTTP method');
+  return res.send('Received a GET HTTP Method');
 });
+
 // get all posts
-router.get('/posts', (req, res) => {
-  return res.send('GET HTTP method for all posts');
-});
+router.get('/posts', post_controller.get_posts);
+
 // get post by ID
 router.get('/posts/:id', (req, res) => {
   return res.send('GET HTTP method for specific post');
