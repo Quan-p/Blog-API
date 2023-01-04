@@ -35,10 +35,10 @@ router.post('/posts/:postid/comment', (req, res) => {
 });
 // Update a post
 router.put('/posts/:postid', post_controller.update_post);
+
 // delete a post
-router.delete('/posts/:id', (req, res) => {
-  return res.send('Received a DELETE HTTP method to delete a post');
-});
+router.delete('/posts/:postid', post_controller.delete_post);
+
 // delete a commnet
 router.delete('/posts/:postid/comment/:commentid', (req, res) => {
   return res.send('Received a DELETE HTTP method to delete a post');

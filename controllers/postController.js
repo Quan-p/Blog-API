@@ -66,6 +66,16 @@ exports.update_post = async function(req, res, next) {
     }
 }
 
+exports.delete_post = async function(req, res, next) {
+    try {
+        const post = await Post.findByIdAndDelete(req.params.postid);
+        if (!post) return res.status(404).json({ msg: `Post with id ${req.params.id} not found` })
+        res.status(202).json({ msg: `Post deleted successfully` })
+    } catch (err) {
+        next(err);
+    }
+}
+
 //     title: { type: String, required: true },
 //     date: { type: Date, default: Date.now },
 //     content: { type: String, required: true },
