@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const post_controller = require('../controllers/postController');
-// 
+const user_controller = require('../controllers/userController');
+
 router.get('/', (req, res) => {
   return res.send('Received a GET HTTP Method');
 });
@@ -43,5 +44,10 @@ router.delete('/posts/:postid', post_controller.delete_post);
 router.delete('/posts/:postid/comment/:commentid', (req, res) => {
   return res.send('Received a DELETE HTTP method to delete a post');
 });
+
+router.post('/login', user_controller.login);
+
+router.get('/logout', user_controller.logout);
+
 
 module.exports = router;
