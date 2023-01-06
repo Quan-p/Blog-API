@@ -15,22 +15,33 @@ app.use(bodyParser.json());
 
 app.use("/", apiRouter);
 
-passport.use(
-  new LocalStrategy((username, password, done) => {
-    User.findOne({ username: username }, (err, user) => {
-      if (err) { 
-        return done(err);
+// Import User model
+const User = require('./models/user');
+
+passport.use('login', new LocalStrategy({
+  usernameField: 'username',
+  passwordField: 'password'
+  },
+  async (username, password, cb) => {
+    try {
+      const user = await User.findOne({ username });
+
+      if(!user) {
+        return done(null, false, { message: 'User not found' });
       }
-      if (!user) {
-        return done(null, false, { message: "Incorrect username" });
+      const validate = await user.isValidPAssword(password);
+
+      if(!validate) {
+        return done(null, false, { message: 'Wrong Password' });
       }
-      if (user.password !== password) {
-        return done(null, false, { message: "Incorrect password" });
-      }
-      return done(null, user);
-    });
-  })
-);
+
+      return done(null, user, { message: 'Log In Successful' });
+    } catch (error) {
+      return done(error);
+    }
+  }
+
+))
 
 passport.serializeUser(function(user, done) {
   done(null, user.id);
