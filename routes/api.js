@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const post_controller = require('../controllers/postController');
 const user_controller = require('../controllers/userController');
+const comment_controller = require('../controllers/commentController');
 
 router.get('/', (req, res) => {
   return res.send('Received a GET HTTP Method');
@@ -31,9 +32,7 @@ router.post('/logout', (req, res) => {
 router.post('/posts', post_controller.create_post);
 
 // Create a comment
-router.post('/posts/:postid/comment', (req, res) => {
-  return res.send('Received a POST HTTP method to create a comment');
-});
+router.post('/posts/:postid/comment', comment_controller.create_comment);
 // Update a post
 router.put('/posts/:postid', post_controller.update_post);
 
