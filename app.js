@@ -50,7 +50,7 @@ passport.use(new JWTStrategy({
   // replace secret with key from env
 },
   async(token, cb) => {
-    try{
+    try {
       return cb(null, token.user);
     } catch (error) {
       cb(error);
