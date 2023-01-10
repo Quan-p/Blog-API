@@ -5,7 +5,9 @@ const bodyParser = require('body-parser');
 const mongoose = require("mongoose");
 const session = require("express-session");
 const passport = require("passport");
+const JWTStrategy = require('passport-jwt').Strategy;
 const LocalStrategy = require("passport-local").Strategy;
+const ExtractJWT = require('passport-jwt').ExtractJwt;
 const apiRouter = require('./routes/api');
 
 const app = express();
@@ -40,7 +42,20 @@ passport.use('login', new LocalStrategy({
       return done(error);
     }
   }
+))
 
+passport.use(new JWTStrategy({
+  jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
+  secretOrKey: 'jwt_secret'
+  // replace secret with key from env
+},
+  async(token, cb) => {
+    try{
+      return cb(null, token.user);
+    } catch (error) {
+      cb(error);
+    }
+  }
 ))
 
 passport.serializeUser(function(user, done) {
