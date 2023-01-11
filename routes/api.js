@@ -15,9 +15,7 @@ router.get('/posts', post_controller.get_posts);
 router.get('/posts/:postid', post_controller.get_single_post);
 
 // get all comments for a post
-router.get('/posts/:postid/comments', (req, res) => {
-  return res.send('GET HTTP method for all comments');
-});
+router.get('/posts/:postid/comments', comment_controller.get_comments);
 
 // login
 router.post('/login', (req, res) => {
