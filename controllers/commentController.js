@@ -33,3 +33,25 @@ exports.create_comment = [
     } 
 ];
 
+exports.get_comments = async function(req, res, next) {
+    try {
+        const allComments = await Comment.find({});
+        const comments = allComments.filter(
+            (comment) => comment.postId === req.params.postid
+        )
+        if (!comments) return res.status(404).json({ err: `Comments not found` });
+        res.status(200).json({ comments });
+    } catch (err) {
+        next(err)
+    }
+};
+
+exports.get_single_comment = async function(req, res, next) {
+    try {
+        const comment = await Comment.findById(req.params.commentid);
+        if (!post) return res.status(404).json({ err: `Comment with id ${req.params.commentid} not found` });
+        res.status(200).json({ post });
+    } catch (err) {
+        next(err)
+    }
+};
