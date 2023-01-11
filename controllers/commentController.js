@@ -49,8 +49,8 @@ exports.get_comments = async function(req, res, next) {
 exports.get_single_comment = async function(req, res, next) {
     try {
         const comment = await Comment.findById(req.params.commentid);
-        if (!post) return res.status(404).json({ err: `Comment with id ${req.params.commentid} not found` });
-        res.status(200).json({ post });
+        if (!comment) return res.status(404).json({ err: `Comment with id ${req.params.commentid} not found` });
+        res.status(200).json({ comment });
     } catch (err) {
         next(err)
     }
