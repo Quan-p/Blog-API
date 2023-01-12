@@ -18,15 +18,7 @@ router.get('/posts/:postid', post_controller.get_single_post);
 router.get('/posts/:postid/comments', comment_controller.get_comments);
 //get single comment for a post
 router.get('/posts/:postid/comments/:commentid', comment_controller.get_single_comment)
-// login
-router.post('/login', (req, res) => {
-  return res.send('Received a POST HTTP method to login');
-});
 
-// logout
-router.post('/logout', (req, res) => {
-  return res.send('Received a POST HTTP method to logout');
-});
 // Create a post
 router.post('/posts', post_controller.create_post);
 
@@ -41,9 +33,12 @@ router.delete('/posts/:postid', post_controller.delete_post);
 // delete a commnet
 router.delete('/posts/:postid/comments/:commentid', comment_controller.delete_comment);
 
+// Admin signup
+router.post('/sign-up', user_controller.signup);
+
+// Login
 router.post('/login', user_controller.login);
 
 router.get('/logout', user_controller.logout);
-
 
 module.exports = router;
