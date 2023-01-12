@@ -55,3 +55,13 @@ exports.get_single_comment = async function(req, res, next) {
         next(err)
     }
 };
+
+exports.delete_comment = async function(req, res, next) {
+    try {
+        const comment = await Comment.findByIdAndDelete(req.params.commentid)
+        if (!comment) return res.status(404).json({ msg: `Comment with id ${req.params.commentid} not found` })
+        res.status(202).json({ msg: `Comment deleted successfully` })
+    } catch (err) {
+        next(err);
+    }
+}

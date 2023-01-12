@@ -39,9 +39,7 @@ router.put('/posts/:postid', post_controller.update_post);
 router.delete('/posts/:postid', post_controller.delete_post);
 
 // delete a commnet
-router.delete('/posts/:postid/comment/:commentid', (req, res) => {
-  return res.send('Received a DELETE HTTP method to delete a post');
-});
+router.delete('/posts/:postid/comments/:commentid', comment_controller.delete_comment);
 
 router.post('/login', user_controller.login);
 
