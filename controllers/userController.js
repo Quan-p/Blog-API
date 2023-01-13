@@ -1,7 +1,7 @@
-const { body, validationResult } = require('express-validator');
 const User = require('../models/user');
 const passport = require('passport');
-const jwt = require("jsonwebtoken");
+const jwt = require('jsonwebtoken');
+const { body, validationResult } = require('express-validator');
 
 exports.signup = [
     body('username', 'Empty username')
@@ -41,29 +41,29 @@ exports.signup = [
     }
 ];
 
-exports.login = async (req, res, next) => {
-    passport.authenticate('login', async (err, user, info) => {
-        try {
-            if (err || !user) {
-                const error = new Error('Error has occurred');
-                return next(error);
-            }
-            
-            req.login(user, { session: false }, async (error) => {
-                if(error) return next(error);
-
-                const body = { _id: user._id, username: user.username };
-                
-                const token = jwt.sign({ user: body }, 'secretkey', {
-                    expiresIn: '1d'
-                });
-                return res.json({ token, user });
-            })
-        } catch(error) {
-            return next(error);
+exports.login = function (req, res) {
+    passport.authenticate('login', { session: false }, (err, user) => {
+        if (err || !user) {
+            return res.status(401).json({
+                message: "Incorrect Username or Password",
+                user,
+            });
         }
-    })
-};
+  
+        jwt.sign(
+            { _id: user._id, username: user.username },
+            process.env.SECRET_KEY,
+            { expiresIn: '30m' },
+            (err, token) => {
+                if (err) return res.status(400).json(err);
+                res.json({
+                    token: token,
+                    user: { _id: user._id, username: user.username },
+                });
+            }
+        );
+    })(req, res);
+  };
 
 exports.logout = function(req, res) {
     req.logout();
