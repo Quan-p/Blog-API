@@ -20,29 +20,35 @@ app.use("/", apiRouter);
 // Import User model
 const User = require('./models/user');
 
-passport.use('login', new LocalStrategy({
-  usernameField: 'username',
-  passwordField: 'password'
-  },
-  async (username, password, cb) => {
-    try {
-      const user = await User.findOne({ username });
+// Passport login strategy
+passport.use(
+  "login",
+  new LocalStrategy(
+    {
+      usernameField: "username",
+      passwordField: "password",
+    },
+    async (username, password, done) => {
+      try {
+        const user = await User.findOne({ username });
 
-      if(!user) {
-        return done(null, false, { message: 'User not found' });
+        if (!user) {
+          return done(null, false, { message: "User not found" });
+        }
+
+        const validate = await user.validPassword(password);
+
+        if (!validate) {
+          return done(null, false, { message: "Wrong Password" });
+        }
+
+        return done(null, user, { message: "Log in Success" });
+      } catch (error) {
+        return done(error);
       }
-      const validate = await user.isValidPAssword(password);
-
-      if(!validate) {
-        return done(null, false, { message: 'Wrong Password' });
-      }
-
-      return done(null, user, { message: 'Log In Successful' });
-    } catch (error) {
-      return done(error);
     }
-  }
-))
+  )
+);
 
 passport.use(new JWTStrategy({
   jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
