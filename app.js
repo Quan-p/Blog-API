@@ -56,7 +56,22 @@ passport.use(new JWTStrategy({
       cb(error);
     }
   }
-))
+));
+
+passport.use('signup', new LocalStrategy(
+  {
+    usernameField: 'username',
+    passwordField: 'password'
+  },
+  async (username, password, cb) => {
+    try {
+      const user = await User.create({ username, password });
+      return cb(null, user);
+    } catch (error) {
+      cb(error)
+    }
+  }
+));
 
 passport.serializeUser(function(user, done) {
   done(null, user.id);
