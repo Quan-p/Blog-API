@@ -49,19 +49,11 @@ exports.login = function (req, res) {
                 user,
             });
         }
-  
-        jwt.sign(
-            { _id: user._id, username: user.username },
-            process.env.SECRET_KEY,
-            { expiresIn: '30m' },
-            (err, token) => {
-                if (err) return res.status(400).json(err);
-                res.json({
-                    token: token,
-                    user: { _id: user._id, username: user.username },
-                });
-            }
-        );
+        const body = { _id: user._id, username: user.username };
+        const token = jwt.sign({ user: body }, process.env.SECRET_KEY);
+        
+        if (err) return res.status(400).json(err);
+        res.json({ token, body });
     })(req, res);
   };
 
