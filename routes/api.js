@@ -3,6 +3,7 @@ const router = express.Router();
 const post_controller = require('../controllers/postController');
 const user_controller = require('../controllers/userController');
 const comment_controller = require('../controllers/commentController');
+const passport = require('passport');
 
 router.get('/', (req, res) => {
   return res.send('Received a GET HTTP Method');
@@ -20,7 +21,7 @@ router.get('/posts/:postid/comments', comment_controller.get_comments);
 router.get('/posts/:postid/comments/:commentid', comment_controller.get_single_comment)
 
 // Create a post
-router.post('/posts', post_controller.create_post);
+router.post('/posts', passport.authenticate('jwt', { session: false }), post_controller.create_post);
 
 // Create a comment
 router.post('/posts/:postid/comment', comment_controller.create_comment);
