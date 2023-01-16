@@ -50,19 +50,21 @@ passport.use(
   )
 );
 
-passport.use(new JWTStrategy({
-  jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
-  secretOrKey: process.env.SECRET_KEY
-  // replace secret with key from env
-},
-  async(token, cb) => {
-    try {
-      return cb(null, token.user);
-    } catch (error) {
-      cb(error);
+passport.use(
+  new JWTStrategy(
+    {
+      secretOrKey: process.env.SECRET_KEY,
+      jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
+    },
+    async (token, done) => {
+      try {
+        return done(null, token.user);
+      } catch (error) {
+        done(error);
+      }
     }
-  }
-));
+  )
+);
 
 passport.use('signup', new LocalStrategy(
   {
