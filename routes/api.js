@@ -17,7 +17,8 @@ router.get('/posts/:postid', post_controller.get_single_post);
 
 // get all comments for a post
 router.get('/posts/:postid/comments', comment_controller.get_comments);
-//get single comment for a post
+
+// get single comment for a post
 router.get('/posts/:postid/comments/:commentid', comment_controller.get_single_comment)
 
 // Create a post
@@ -25,14 +26,15 @@ router.post('/posts', passport.authenticate('jwt', { session: false }), post_con
 
 // Create a comment
 router.post('/posts/:postid/comment', comment_controller.create_comment);
+
 // Update a post
-router.put('/posts/:postid', post_controller.update_post);
+router.put('/posts/:postid', passport.authenticate('jwt', { session: false }), post_controller.update_post);
 
 // delete a post
-router.delete('/posts/:postid', post_controller.delete_post);
+router.delete('/posts/:postid', passport.authenticate('jwt', { session: false }), post_controller.delete_post);
 
 // delete a commnet
-router.delete('/posts/:postid/comments/:commentid', comment_controller.delete_comment);
+router.delete('/posts/:postid/comments/:commentid', passport.authenticate('jwt', { session: false }), comment_controller.delete_comment);
 
 // Admin signup
 router.post('/sign-up', user_controller.signup);
