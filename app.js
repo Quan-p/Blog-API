@@ -3,6 +3,7 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 const bodyParser = require('body-parser');
 const mongoose = require("mongoose");
+const cors = require('cors');
 const session = require("express-session");
 const passport = require("passport");
 const JWTStrategy = require('passport-jwt').Strategy;
@@ -91,6 +92,7 @@ passport.deserializeUser(function(id, done) {
   });
 });
 
+app.use(cors());
 app.use(session({ secret: "secretpassword", resave: false, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
