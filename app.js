@@ -3,7 +3,7 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 const bodyParser = require('body-parser');
 const mongoose = require("mongoose");
-const cors = require('cors');
+// const cors = require('cors');
 const session = require("express-session");
 const passport = require("passport");
 const JWTStrategy = require('passport-jwt').Strategy;
@@ -12,7 +12,7 @@ const ExtractJWT = require('passport-jwt').ExtractJwt;
 const apiRouter = require('./routes/api');
 
 const app = express();
-app.use(cors());
+//app.use(cors());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
