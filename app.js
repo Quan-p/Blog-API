@@ -12,7 +12,7 @@ const ExtractJWT = require('passport-jwt').ExtractJwt;
 const apiRouter = require('./routes/api');
 
 const app = express();
-
+app.use(cors());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
@@ -92,7 +92,6 @@ passport.deserializeUser(function(id, done) {
   });
 });
 
-app.use(cors());
 app.use(session({ secret: "secretpassword", resave: false, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
