@@ -109,8 +109,7 @@ db.on("error", console.error.bind(console, "MongoDB connection error:"));
 db.once('connected', () => {
   console.log('Database Connected');
 })
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Listening on http://localhost:${PORT}`));
+
 
 
 
