@@ -1,5 +1,7 @@
 require('dotenv').config();
 const express = require('express');
+const compression = require("compression");
+const helmet = require("helmet");
 const jwt = require('jsonwebtoken');
 const bodyParser = require('body-parser');
 const mongoose = require("mongoose");
@@ -92,6 +94,8 @@ passport.deserializeUser(function(id, done) {
   });
 });
 
+app.use(compression());
+app.use(helmet());
 app.use(session({ secret: "secretpassword", resave: false, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
