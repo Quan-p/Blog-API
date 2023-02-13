@@ -41,6 +41,16 @@ exports.signup = [
     }
 ];
 
+exports.get_single_user = async function(req, res, next) {
+    try {
+        const user = await User.findById(req.params.userid);
+        if (!user) return res.status(404).json({ err: `User with id ${req.params.id} not found` });
+        res.status(200).json({ user });
+    } catch (err) {
+        next(err)
+    }
+};
+
 exports.login = function (req, res) {
     passport.authenticate('login', { session: false }, (err, user) => {
         if (err || !user) {
