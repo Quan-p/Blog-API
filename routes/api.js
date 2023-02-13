@@ -15,6 +15,10 @@ router.get('/posts', post_controller.get_posts);
 // get post by ID
 router.get('/posts/:postid', post_controller.get_single_post);
 
+// get all users
+router.get('/users', user_controller.get_users);
+
+// get user by ID
 router.get('/users/:userid', user_controller.get_single_user);
 
 // get all comments for a post

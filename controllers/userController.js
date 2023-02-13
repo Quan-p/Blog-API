@@ -41,6 +41,16 @@ exports.signup = [
     }
 ];
 
+exports.get_users = async function(req, res, next) {
+    try {
+        const users = await User.find({});
+        if (!users) return res.status(404);
+        res.status(200).json({ users });
+    } catch (err) {
+        next(err)
+    }
+};
+
 exports.get_single_user = async function(req, res, next) {
     try {
         const user = await User.findById(req.params.userid);
