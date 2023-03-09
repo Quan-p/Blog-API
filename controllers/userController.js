@@ -70,7 +70,7 @@ exports.login = function (req, res) {
             });
         }
         const body = { _id: user._id, username: user.username };
-        const token = jwt.sign({ user: body }, process.env.SECRET_KEY);
+        const token = jwt.sign({ user: body }, process.env.SECRET_KEY, { expiresIn: '1d' });
         
         if (err) return res.status(400).json(err);
         res.json({ token, body });
