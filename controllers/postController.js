@@ -16,7 +16,8 @@ exports.create_post = [
         const post = new Post({
             title,
             author,
-            content
+            content,
+            published
         });
         try {
             post.save((err) => {
@@ -75,10 +76,3 @@ exports.delete_post = async function(req, res, next) {
         next(err);
     }
 }
-
-//     title: { type: String, required: true },
-//     date: { type: Date, default: Date.now },
-//     content: { type: String, required: true },
-//     author: { type: Schema.Types.ObjectId, required: true, ref: 'User' },
-//     comments: { type: Array, default: [] },
-//     published: { type: Boolean, default: false },
