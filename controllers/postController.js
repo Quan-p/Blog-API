@@ -2,7 +2,8 @@ const Post = require('../models/post');
 const { body, validationResult } = require('express-validator');
 
 exports.create_post = [
-    body('title', 'content').trim().escape(),
+    body('title').trim().escape(),
+    body('content').trim().escape(),
 
     async(req, res, next) => {
         const errors = validationResult(req);
@@ -12,7 +13,7 @@ exports.create_post = [
                 data: req.body
             })
         }
-        const { author, title, content } = req.body;
+        const { author, title, content, published } = req.body;
         const post = new Post({
             title,
             author,
