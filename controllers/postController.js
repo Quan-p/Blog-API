@@ -60,6 +60,7 @@ exports.update_post = async function(req, res, next) {
             title,
             content,
             author,
+            published
         });
         if (!post) return res.status(404).json({ err: `Post with id ${req.params.id} not found` });
         res.status(200).json({ msg: "Post updated successfully" });
