@@ -55,11 +55,10 @@ exports.get_single_post = async function(req, res, next) {
 
 exports.update_post = async function(req, res, next) {
     try {
-        const { title, content, author } = req.body;
+        const { title, content, published } = req.body;
         const post = await Post.findByIdAndUpdate(req.params.postid, {
             title,
             content,
-            author,
             published
         });
         if (!post) return res.status(404).json({ err: `Post with id ${req.params.id} not found` });
